@@ -1,107 +1,443 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página - Módulo I - Primeiros Passos com HTML</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Página Principal - Crepúsculo</title>
+    <style>
+        /* Reset básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #121212;
+            color: #eee;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* HEADER */
+        header {
+            background-color: #1c1c1c;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 30px;
+            border-bottom: 2px solid #c62828;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo img {
+            width: 180px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo img:hover {
+            transform: scale(1.05);
+        }
+
+        nav.bar ul {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+        }
+
+        nav.bar ul li a {
+            text-decoration: none;
+            color: #eee;
+            font-weight: 600;
+            padding: 8px 12px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        nav.bar ul li a:hover {
+            background-color: #c62828;
+            color: #fff;
+        }
+
+        /* MAIN CONTENT */
+        main.content {
+            display: grid;
+            grid-template-columns: 1fr 300px 1fr;
+            gap: 40px;
+            padding: 40px 60px;
+            flex-grow: 1;
+            background: #181818;
+        }
+
+        /* SECTIONS */
+        section#sobre {
+            background-color: #222;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #c62828aa;
+        }
+
+        section#sobre h2 {
+            margin-bottom: 15px;
+            color: #f44336;
+            border-bottom: 2px solid #c62828;
+            padding-bottom: 5px;
+        }
+
+        section#sobre p {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .infobox {
+            background-color: #2c2c2c;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 0 10px #c62828cc;
+        }
+
+        .infobox h3 {
+            color: #f44336;
+            margin-bottom: 15px;
+        }
+
+        .infobox img {
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px #c62828bb;
+        }
+
+        .infobox p {
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+
+        /* ASIDE - SIDEBAR */
+        aside.sidebar {
+            background-color: #222;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 12px #c62828cc;
+            color: #ddd;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        aside.sidebar h2 {
+            color: #f44336;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #c62828;
+            padding-bottom: 6px;
+        }
+
+        aside.sidebar h3 {
+            margin-top: 15px;
+            color: #ff7961;
+        }
+
+        aside.sidebar ul {
+            list-style-type: disc;
+            margin-left: 20px;
+            font-size: 1rem;
+        }
+
+        .sidebar-image img {
+            margin-top: 15px;
+            border-radius: 10px;
+            width: 100%;
+            box-shadow: 0 0 15px #c62828cc;
+        }
+
+        /* SECTION MAIN - ARTICLES */
+        section.main {
+            background-color: #222;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 0 12px #c62828cc;
+            color: #ddd;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        section.main article h2 {
+            color: #f44336;
+            border-bottom: 2px solid #c62828;
+            padding-bottom: 6px;
+            margin-bottom: 15px;
+        }
+
+        section.main article p {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+
+        section.main table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        section.main table th,
+        section.main table td {
+            padding: 12px 15px;
+            border: 1px solid #444;
+            text-align: left;
+        }
+
+        section.main table th {
+            background-color: #c62828;
+            color: #fff;
+        }
+
+        section.main table tr:nth-child(even) {
+            background-color: #2a2a2a;
+        }
+
+        .film-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .film-list li {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .film-list li a {
+            color: #ff7961;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .film-list li a:hover {
+            color: #f44336;
+            text-decoration: underline;
+        }
+
+        figure {
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        figure img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 0 15px #c62828cc;
+        }
+
+        figcaption {
+            margin-top: 8px;
+            font-style: italic;
+            color: #bbb;
+        }
+
+        /* SECTION ANCHORS */
+        section.anchors {
+            grid-column: 1 / -1;
+            background-color: #1c1c1c;
+            padding: 20px 40px;
+            margin-top: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #c62828aa;
+        }
+
+        section.anchors h2 {
+            color: #f44336;
+            margin-bottom: 15px;
+        }
+
+        section.anchors ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        section.anchors ul li a {
+            color: #ff7961;
+            font-weight: 600;
+            text-decoration: none;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.3s ease;
+        }
+
+        section.anchors ul li a:hover {
+            border-color: #f44336;
+        }
+
+        /* FOOTER */
+        footer.footer {
+            background-color: #1c1c1c;
+            text-align: center;
+            padding: 25px 20px;
+            margin-top: auto;
+            border-top: 2px solid #c62828;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        /* RESPONSIVO */
+        @media (max-width: 1080px) {
+            main.content {
+                grid-template-columns: 1fr 1fr;
+                padding: 30px 20px;
+            }
+
+            aside.sidebar {
+                order: 3;
+                grid-column: span 2;
+                width: 100%;
+            }
+
+            section.main {
+                order: 2;
+                grid-column: span 2;
+            }
+
+            section#sobre {
+                order: 1;
+                grid-column: span 2;
+            }
+        }
+
+        @media (max-width: 700px) {
+            main.content {
+                grid-template-columns: 1fr;
+                padding: 20px 15px;
+            }
+
+            nav.bar ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            nav.bar ul li a {
+                padding: 10px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <font face="Arial">
-    <h1 id="inicio"> Módulo 1 - Primeiros Passos com HTML</h1>
-    <hr /> <!-- linha horizontal -->
+    <header>
+        <div class="logo">
+            <img src="https://vectorseek.com/wp-content/uploads/2023/09/Twilight-Logo-Vector.svg-.png" alt="Logotipo da Saga Crepúsculo" width="200" />
+        </div>
+        <nav class="bar">
+            <ul>
+                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="#personagens">Personagens</a></li>
+                <li><a href="#filmes">Filmes</a></li>
+                <li><a href="#livros">Livros</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <h2>Índice</h2>
-    
-    <ul> <!-- lista não ordenada -->
-        <li><a href="#clients">O que são <i>Clients</i>?</a></li>
-        <li><a href="#servers">O que são <i>Servers</i>?</a></li>
-        <li><a href="#github">Versionamento de código com Git e Github</a></li>
-        <li><a href="#html5">Estrutura Básica HTML5</a></li>
-        <li><a href="#link">Link de referências</a></li>
-    </ul>
+    <main class="content">
+        <section id="sobre">
+            <h2>Sobre a Saga</h2>
+            <p>
+                Crepúsculo (Twilight) é uma série de romances de fantasia escrita por Stephenie Meyer, composta por quatro livros publicados entre 2005 e 2008. A história segue o triângulo amoroso entre a humana Bella Swan, o vampiro Edward Cullen e o lobisomem Jacob Black na pequena cidade de Forks, Washington.
+            </p>
 
-    <h2 id="clients"> O que são <i>Clients</i>?</h2>
-    <a href="#inicio">(Voltar ao Início)</a> <!-- ancora -->
-    <p>Clients são dispositivos ou programas que pedem informações ou serviços a outros computadores chamados servidores. <br>
-    Por exemplo, quando você abre seu navegador e acessa um site, o navegador é o client. Ele envia um pedido ao servidor para receber a página da internet. <br> <br>
-    <strong>Resumo Simples:</strong>
-    <ul>
-        <li>Cliente é quem pede algo.</li>
-        <li>Pode ser um navegador, um app no celular, ou qualquer dispositivo que acessa serviços pela internet.</li>
-    </ul> <br>
-    <strong><u>Assista o Vídeo a seguir para entender melhor:</u></strong> <br> <br>
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/FWeHPCqD67c?si=CYy2mAVdIwB9Sd2f" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-    </p>
+            <div class="infobox">
+                <h3>Crepúsculo</h3>
+                <img src="https://cdn.dooca.store/81243/products/jyfqxttrknpmi7h3ajyt3wlqxkccqgroqk6t_640x640+fill_ffffff.jpg?v=1719510190&webp=0" alt="Capa do livro Crepúsculo" width="300" />
+                <p><strong>Autora:</strong> Stephenie Meyer</p>
+                <p><strong>Gênero:</strong> Romance fantástico</p>
+                <p><strong>Lançamento:</strong> 2005</p>
+            </div>
+        </section>
 
-    <h2 id="servers"> O que são <i>Servers</i>?</h2>
-    <a href="#inicio">(Voltar ao Início)</a> <!-- ancora -->
-    <p> Servers são computadores ou programas que respondem aos pedidos feitos pelos clients, fornecendo os dados ou serviços solicitados. <br>
-    Por exemplo, o computador onde o site está hospedado é o servidor. Ele recebe o pedido do client e envia a página para o navegador mostrar. <br>
-    <strong>Resumo Simples:</strong>
-    <ul>
-        <li>Server é quem responde aos pedidos.</li>
-        <li>Ele armazena dados, processa informações e entrega o que o client precisa.</li>
-    </ul> <br>
-    <strong><u>Assista o Vídeo a seguir para entender melhor:</u></strong> <br> <br>
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/LLKYNgiyRXM?si=mgTGZKRcyC7kx-Az" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-    </p>
+        <aside class="sidebar" id="personagens">
+            <h2>Personagens</h2>
+            <h3>Principais</h3>
+            <ul>
+                <li>Bella Swan</li>
+                <li>Edward Cullen</li>
+                <li>Jacob Black</li>
+            </ul>
+            <h3>Secundários</h3>
+            <ul>
+                <li>Alice Cullen</li>
+                <li>Carlisle Cullen</li>
+                <li>Rosalie Hale</li>
+            </ul>
+            <div class="sidebar-image">
+                <img src="https://recreio.com.br/wp-content/uploads/filmes/crepusculo_capa.jpg" alt="Elenco principal do filme Crepúsculo"  />
+            </div>
+        </aside>
 
-     <h2 id="github">Versionamento de código com Git e Github</h2>
-     <a href="#inicio">(Voltar ao Início)</a> <br> <br> <!-- ancora -->
+        <section class="main" id="livros">
+            <article>
+                <h2>Saga Literária</h2>
+                <p>A série de livros consiste em:</p>
+                <table>
+                    <tr>
+                        <th>Livro</th>
+                        <th>Ano</th>
+                    </tr>
+                    <tr>
+                        <td>Crepúsculo</td>
+                        <td>2005</td>
+                    </tr>
+                    <tr>
+                        <td>Lua Nova</td>
+                        <td>2006</td>
+                    </tr>
+                    <tr>
+                        <td>Eclipse</td>
+                        <td>2007</td>
+                    </tr>
+                    <tr>
+                        <td>Amanhecer</td>
+                        <td>2008</td>
+                    </tr>
+                </table>
+            </article>
 
-     <strong>O que é Git?</strong> 
-    <p>Git é uma ferramenta que ajuda programadores a controlar as mudanças feitas no código dos projetos. <br>
-    Com ele, você consegue salvar versões diferentes do seu trabalho, voltar para versões antigas, e trabalhar junto com outras pessoas sem perder nada. <br> <br>
+            <article id="filmes">
+                <h2>Adaptações Cinematográficas</h2>
+                <p>A série de filmes inclui:</p>
+                <ul class="film-list">
+                    <li><a href="https://www.imdb.com/title/tt1099212/" target="_blank" rel="noopener"><strong>Crepúsculo</strong> (2008)</a></li>
+                    <li><a href="https://www.imdb.com/pt/title/tt1259571/?ref_=fn_all_ttl_3" target="_blank" rel="noopener"><strong>Lua Nova</strong> (2009)</a></li>
+                    <li><a href="https://www.imdb.com/title/tt1325004/" target="_blank" rel="noopener"><strong>Eclipse</strong> (2010)</a></li>
+                    <li><a href="https://www.imdb.com/pt/title/tt1324999/?ref_=fn_all_ttl_1" target="_blank" rel="noopener"><strong>Amanhecer - Parte 1</strong> (2011)</a></li>
+                    <li><a href="https://www.imdb.com/title/tt1673434/" target="_blank" rel="noopener"><strong>Amanhecer - Parte 2</strong> (2012)</a></li>
+                </ul>
+                <figure>
+                    <img src="https://mb.web.sapo.io/9a578481225b7abdde5071168e40557741478605.jpg" alt="Poster promocional da saga Crepúsculo" />
+                    <figcaption>Poster promocional da saga cinematográfica</figcaption>
+                </figure>
+            </article>
+        </section>
 
-     <strong>O que é Git Hub?</strong> <br>
-    GitHub é uma plataforma online onde você guarda seus projetos com Git. Lá, você pode compartilhar seu código, colaborar com outros programadores e acompanhar o progresso do projeto. <br> <br>
+        <section class="anchors">
+            <h2>Neste Artigo</h2>
+            <ul>
+                <li><a href="#sobre">Sobre Crepúsculo</a></li>
+                <li><a href="#personagens">Personagens Principais</a></li>
+                <li><a href="#filmes">Filmes</a></li>
+                <li><a href="#livros">Livros</a></li>
+            </ul>
+        </section>
+    </main>
 
-    <strong>Por que usar Git e GitHub?</strong> <br>
-    Porque eles tornam o trabalho em equipe mais organizado, ajudam a evitar erros, e facilitam o desenvolvimento de softwares, mesmo quando várias pessoas estão mexendo no mesmo código. <br>
-    </p>
-    <ul>
-        <li> <b> <mark>Git init</mark></b> =
-    Inicia um repositório Git em uma pasta. É como começar a usar o controle de versões no seu projeto.</li>
-
-    <li> <b> <mark>Git add</mark></b> =
-    Prepara os arquivos que você quer salvar (ou “commitar”) no controle de versões. É como dizer: “esses arquivos estão prontos para serem salvos”.</li>
-
-    <li> <b> <mark>Git commit</mark></b> =
-   Salva as mudanças preparadas com o git add. Aqui você escreve uma mensagem que explica o que mudou, tipo um registro do que foi feito.</li>
- 
-    <li> <b> <mark>Git push</mark></b> =
-    Envia as mudanças salvas no seu computador para um repositório remoto, como o GitHub, para que outras pessoas possam ver e colaborar. </li>
-
-     <li> <b> <mark> Git pull</mark></b> =
-    Puxa as atualizações feitas por outras pessoas no repositório remoto para o seu computador, mantendo tudo sincronizado. </li>
-
-    <li> <b> <mark>Git status</mark></b> =
-    Mostra quais arquivos foram modificados, quais estão prontos para salvar e quais ainda não estão sendo controlados. </li>
-
-    </ul>
-
-    <h2 id="html5">Estrutura Básica HTML5</h2>
-    <a href="#inicio">(Voltar ao Início)</a> <br> <br> <!-- ancora -->
-    <p> <i>HTML (HyperText Markup Language)</i> é a linguagem usada para criar páginas na internet. Toda página HTML tem uma estrutura padrão, que funciona como o esqueleto do site. <br>
-    <ul>
-        <li> !DOCTYPE html — informa ao navegador que o documento é HTML5.</li>
-        <li> html lang="pt-BR" — elemento raiz que envolve toda a página, com o idioma definido para português do Brasil.</li>
-        <li> head — área de informações que não aparecem diretamente na página, como o título, codificação de caracteres e links para estilos.</li>
-        <li> title — título que aparece na aba do navegador.</li>
-        <li> body — corpo da página, onde ficam os conteúdos visíveis como textos, imagens, botões, etc.</li>
-        <li> h1 — título principal da página.</li>
-        <li> p — parágrafo de texto.</li>
-    </ul>
-    </p>
-
-    <h2 id="link">Link de referências</h2>
-    <a href="#inicio">(Voltar ao Início)</a> <br> <br> <!-- ancora -->
-    <ul>
-        <li><a href="http://dio.me" target="_blank">http://dio.me</a></li>
-        <li><a href="https://www.w3schools.com/" target="_blank">https://www.w3schools.com/</a></li>
-    </ul>
-</font>
+    <footer class="footer">
+        <div class="footer-content">
+            <p>© 2025 Vitórya de Almeida Vieira. Todos os direitos reservados.</p>
+        <p>Contato: vitoryadealmeidavieiraa@gmail.com</p>
+        </div>
+    </footer>
 </body>
 </html>
-
